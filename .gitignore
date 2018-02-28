@@ -1,4 +1,7 @@
 *swp
 init.sql
 server-config.yaml
-*env
+analysis-config.yaml
+mysql.env
+docker_backups
+.directory

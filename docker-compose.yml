@@ -1,16 +1,22 @@
-suma:
-  build: .
-  ports:
-    - 80:80
-    - 19679:19679
-  links:
-    - mysql_db:mysql_db
+version: "3.0"
 
-mysql_db:
-  build: .
-  dockerfile: DockerfileMySQL
-  env_file: .env
-  environment:
-   - MYSQL_HOST=
-  volumes:
-   - /opt/db:/opt/db
+services:
+  suma:
+    container_name: suma_web
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile-suma
+    ports:
+      - 80:80
+      - 19679:19679
+    environment:
+       TZ: America/New_York
+
+  mysql_db:
+    container_name: suma_mysql
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile-mysql
+    env_file: ./config/mysql.env
+    ports:
+        - 3306:3306
